@@ -1,7 +1,6 @@
 module AdventOfCode2019
 
-files = [x for x in readdir(joinpath(@__DIR__, "days")) if splitext(x)[2]==".jl"]
-include.(joinpath.(@__DIR__, "days", files))
+include.([x for x in readdir(joinpath(@__DIR__)) if match(r"^day\d+\.jl$", x) != nothing])
 
 function readInput(path::String)
     s = open(path, "r") do file
