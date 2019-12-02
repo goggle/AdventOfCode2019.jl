@@ -1,4 +1,4 @@
-function day01(input::String = readInput("data/day01.txt"))
+function day01(input::String = readInput(inputPath("day01.txt")))
     masses = parse.(Int, split(input))
     fuel = masses .÷ 3 .- 2
 

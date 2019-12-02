@@ -10,4 +10,8 @@ function readInput(path::String)
     return s
 end
 
+function inputPath(fname::String)
+    return joinpath(splitpath(@__DIR__)[1:end-1]..., "data", fname)
+end
+
 end # module
