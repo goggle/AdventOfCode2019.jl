@@ -1,6 +1,7 @@
 module AdventOfCode2019
 
-include.([x for x in readdir(joinpath(@__DIR__)) if match(r"^day\d+\.jl$", x) != nothing])
+include(joinpath(@__DIR__, "day01", "day01.jl"))
+include(joinpath(@__DIR__, "day02", "day02.jl"))
 
 function readInput(path::String)
     s = open(path, "r") do file

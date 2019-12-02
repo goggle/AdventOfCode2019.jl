@@ -1,4 +1,4 @@
-function day02(input::String = readInput(inputPath("day02.txt")))
+function day02(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     data = parse.(Int, split(input, ","))
     dataCopy = copy(data)
 
