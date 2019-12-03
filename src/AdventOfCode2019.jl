@@ -2,6 +2,7 @@ module AdventOfCode2019
 
 include(joinpath(@__DIR__, "day01", "day01.jl"))
 include(joinpath(@__DIR__, "day02", "day02.jl"))
+include(joinpath(@__DIR__, "day03", "day03.jl"))
 
 function readInput(path::String)
     s = open(path, "r") do file
