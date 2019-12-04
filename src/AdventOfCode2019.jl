@@ -21,9 +21,9 @@ end
 function benchmark()
     for day in 1:25
         sym = Symbol("day" * @sprintf("%02d", day))
-        !isdefined(AdventOfCode2019, sym) && continue
-        func = getproperty(AdventOfCode2019, sym)
-        @btime AdventOfCode2019.func()
+        !isdefined(@__MODULE__, sym) && continue
+        #f = getproperty(AdventOfCode2019, sym)
+        f = getproperty(@__MODULE__, sym)
     end
 end
 
