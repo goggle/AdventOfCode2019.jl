@@ -16,3 +16,7 @@ end
     @test AdventOfCode2019.day03(inp2) == [135, 410]
     @test AdventOfCode2019.day03() == [1983, 107754]
 end
+
+@testset "Day 4" begin
+    @test AdventOfCode2019.day04() == [1675, 1142]
+end
