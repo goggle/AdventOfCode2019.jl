@@ -47,43 +47,20 @@ function _run_program(data::Array{Int, 1}, input::Int)
             val = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
             push!(out, val)
             i += 2
-        elseif optcode == 5  # jump-if-true
+        elseif optcode == 5 || optcode == 6 # jump-if-true and jump-if-false
             par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
-            if par1 != 0
+            op = optcode == 5 ? eval(!=) : eval(==)
+            if op(par1, 0)
                 par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
                 i = par2 + 1
             else
                 i += 3
             end
-        elseif optcode == 6  # jump-if-false
-            par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
-            if par1 == 0
-                par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
-                i = par2 + 1
-            else
-                i += 3
-            end
-        elseif optcode == 7  # less than
+        elseif optcode == 7 || optcode == 8  # less than and equals
             par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
             par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
-            if par1 < par2
-                if modes[3] == 0
-                    data[data[i+3]+1] = 1
-                else
-                    data[i+3] = 1
-                end
-            else
-                if modes[3] == 0
-                    data[data[i+3]+1] = 0
-                else
-                    data[i+3] = 0
-                end
-            end
-            i += 4
-        elseif optcode == 8  # equals
-            par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
-            par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
-            if par1 == par2
+            op = optcode == 7 ? eval(<) : eval(==)
+            if op(par1, par2)
                 if modes[3] == 0
                     data[data[i+3]+1] = 1
                 else
