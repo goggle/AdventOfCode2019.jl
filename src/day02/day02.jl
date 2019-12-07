@@ -1,3 +1,7 @@
+module Day02
+
+using AdventOfCode2019
+
 function day02(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     data = parse.(Int, split(input, ","))
     dataCopy = copy(data)
@@ -43,3 +47,5 @@ function _run_program(data::Array{Int, 1})
     end
     return data[1]
 end
+
+end # module

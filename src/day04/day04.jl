@@ -1,3 +1,7 @@
+module Day04
+
+using AdventOfCode2019
+
 function day04(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     low, high = parse.(Int, split(input, "-"))
     !((low >= 100_000) && (high <= 999_999)) && throw(AssertionError("Invalid input range"))
@@ -93,3 +97,5 @@ function next!(digits::Array{UInt8,1}, high::Array{UInt8,1})
     end
     return digits[end] <= high[end]
 end
+
+end # module

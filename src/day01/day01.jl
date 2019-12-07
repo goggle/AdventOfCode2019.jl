@@ -1,3 +1,7 @@
+module Day01
+
+using AdventOfCode2019
+
 function day01(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     masses = parse.(Int, split(input))
     fuel = masses .÷ 3 .- 2
@@ -12,3 +16,5 @@ function day01(input::String = readInput(joinpath(@__DIR__, "input.txt")))
 
     return [fuel |> sum, solution2]
 end
+
+end # module

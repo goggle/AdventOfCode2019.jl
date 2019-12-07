@@ -1,3 +1,7 @@
+module Day03
+
+using AdventOfCode2019
+
 function day03(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     wires = split.(split(input), ",")
     paths = [Array{Tuple{UnitRange{Int},UnitRange{Int}},1}(undef, length(wire)) for wire in wires]
@@ -67,3 +71,5 @@ function day03(input::String = readInput(joinpath(@__DIR__, "input.txt")))
 
     return [dists[2], totalDistance[2]]
 end
+
+end # module
