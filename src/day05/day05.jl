@@ -7,18 +7,18 @@ function day05(input::String = readInput(joinpath(@__DIR__, "input.txt")))
 
     c1 = Channel{Int}(2)
     put!(c1, 1)
-    out1 = _run_program(copy(data), c1)
+    out1 = _run_program(copy(data), c1, nothing)
     close(c1)
 
     c2 = Channel{Int}(2)
     put!(c2, 5)
-    out2 = _run_program(copy(data), c2)
+    out2 = _run_program(copy(data), c2, nothing)
     close(c2)
 
     return [out1[end], out2[end]]
 end
 
-function _run_program(data::Array{Int, 1}, input::Channel{Int})
+function _run_program(data::Array{Int, 1}, input::Channel{Int}, output::Union{Channel{Int},Nothing})
     out = Array{Int,1}()
 
     i = 1  # instruction pointer
@@ -54,7 +54,11 @@ function _run_program(data::Array{Int, 1}, input::Channel{Int})
             i += 2
         elseif optcode == 4  # output
             val = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
-            push!(out, val)
+            if output == nothing
+                push!(out, val)
+            else
+                put!(output, val)
+            end
             i += 2
         elseif optcode == 5 || optcode == 6 # jump-if-true and jump-if-false
             par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
@@ -95,7 +99,7 @@ function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
     for value in input
         put!(c, value)
     end
-    out = _run_program(data, c)
+    out = _run_program(data, c, nothing)
     close(c)
     return out
 end
