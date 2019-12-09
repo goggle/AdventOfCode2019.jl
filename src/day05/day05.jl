@@ -4,12 +4,21 @@ using AdventOfCode2019
 
 function day05(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     data = parse.(Int, split(input, ","))
-    out1 = _run_program(copy(data), [1])
-    out2 = _run_program(copy(data), [5])
+
+    c1 = Channel{Int}(2)
+    put!(c1, 1)
+    out1 = _run_program(copy(data), c1)
+    close(c1)
+
+    c2 = Channel{Int}(2)
+    put!(c2, 5)
+    out2 = _run_program(copy(data), c2)
+    close(c2)
+
     return [out1[end], out2[end]]
 end
 
-function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
+function _run_program(data::Array{Int, 1}, input::Channel{Int})
     out = Array{Int,1}()
 
     i = 1  # instruction pointer
@@ -41,7 +50,7 @@ function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
             i += 4
         elseif optcode == 3  # read input
             address = data[i+1]
-            data[address+1] = popfirst!(input)
+            data[address+1] = take!(input)
             i += 2
         elseif optcode == 4  # output
             val = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
@@ -78,6 +87,16 @@ function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
             throw(AssertionError("Invalid optcode: $optcode"))
         end
     end
+    return out
+end
+
+function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
+    c = Channel{Int}(length(input)+1)
+    for value in input
+        put!(c, value)
+    end
+    out = _run_program(data, c)
+    close(c)
     return out
 end
 
