@@ -4,12 +4,12 @@ using AdventOfCode2019
 
 function day05(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     data = parse.(Int, split(input, ","))
-    out1 = _run_program(copy(data), 1)
-    out2 = _run_program(copy(data), 5)
+    out1 = _run_program(copy(data), [1])
+    out2 = _run_program(copy(data), [5])
     return [out1[end], out2[end]]
 end
 
-function _run_program(data::Array{Int, 1}, input::Int)
+function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
     out = Array{Int,1}()
 
     i = 1  # instruction pointer
@@ -41,7 +41,7 @@ function _run_program(data::Array{Int, 1}, input::Int)
             i += 4
         elseif optcode == 3  # read input
             address = data[i+1]
-            data[address+1] = input
+            data[address+1] = popfirst!(input)
             i += 2
         elseif optcode == 4  # output
             val = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
