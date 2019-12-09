@@ -10,6 +10,7 @@ include(joinpath(@__DIR__, "day04", "day04.jl"))
 include(joinpath(@__DIR__, "day05", "day05.jl"))
 include(joinpath(@__DIR__, "day06", "day06.jl"))
 include(joinpath(@__DIR__, "day07", "day07.jl"))
+include(joinpath(@__DIR__, "day08", "day08.jl"))
 
 export readInput
 function readInput(path::String)

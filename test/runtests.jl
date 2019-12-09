@@ -81,3 +81,16 @@ end
 
     @test AdventOfCode2019.Day07.day07() == [844468, 4215746]
 end
+
+@testset "Day 8" begin
+    part1, imagecode = AdventOfCode2019.Day08.day08()
+    @test part1 == 2375
+    image = AdventOfCode2019.Day08.generate_image(imagecode)
+    expected = "███  █  █ █  █ ███  █   █\n" *
+               "█  █ █ █  █  █ █  █ █   █\n" *
+               "█  █ ██   ████ █  █  █ █ \n" *
+               "███  █ █  █  █ ███    █  \n" *
+               "█ █  █ █  █  █ █ █    █  \n" *
+               "█  █ █  █ █  █ █  █   █  \n"
+    @test image == expected
+end
