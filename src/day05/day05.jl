@@ -18,8 +18,8 @@ function day05(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     return [out1[end], out2[end]]
 end
 
-function _run_program(data::Array{Int, 1}, input::Channel{Int}, output::Union{Channel{Int},Nothing}, done::Union{Channel{Bool}, Nothing})
-    out = Array{Int,1}()
+function _run_program(data::Array{T, 1}, input::Channel{T}, output::Union{Channel{T},Nothing}, done::Union{Channel{Bool}, Nothing}) where T <: Integer
+    out = Array{T,1}()
 
     i = 1  # instruction pointer
     digs = Array{UInt8,1}(undef, 5)
