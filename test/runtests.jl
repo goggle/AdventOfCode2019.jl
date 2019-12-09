@@ -57,3 +57,8 @@ end
 
     @test AdventOfCode2019.Day05.day05() == [7566643, 9265694]
 end
+
+@testset "Day 6" begin
+    @test AdventOfCode2019.Day06.day06("COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\nK)YOU\nI)SAN") == [54, 4]
+    @test AdventOfCode2019.Day06.day06() == [194721, 316]
+end
