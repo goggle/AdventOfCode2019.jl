@@ -7,18 +7,18 @@ function day05(input::String = readInput(joinpath(@__DIR__, "input.txt")))
 
     c1 = Channel{Int}(2)
     put!(c1, 1)
-    out1 = _run_program(copy(data), c1, nothing)
+    out1 = _run_program(copy(data), c1, nothing, nothing)
     close(c1)
 
     c2 = Channel{Int}(2)
     put!(c2, 5)
-    out2 = _run_program(copy(data), c2, nothing)
+    out2 = _run_program(copy(data), c2, nothing, nothing)
     close(c2)
 
     return [out1[end], out2[end]]
 end
 
-function _run_program(data::Array{Int, 1}, input::Channel{Int}, output::Union{Channel{Int},Nothing})
+function _run_program(data::Array{Int, 1}, input::Channel{Int}, output::Union{Channel{Int},Nothing}, done::Union{Channel{Bool}, Nothing})
     out = Array{Int,1}()
 
     i = 1  # instruction pointer
@@ -91,6 +91,9 @@ function _run_program(data::Array{Int, 1}, input::Channel{Int}, output::Union{Ch
             throw(AssertionError("Invalid optcode: $optcode"))
         end
     end
+    if done != nothing
+        put!(done, true)
+    end
     return out
 end
 
@@ -99,7 +102,7 @@ function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
     for value in input
         put!(c, value)
     end
-    out = _run_program(data, c, nothing)
+    out = _run_program(data, c, nothing, nothing)
     close(c)
     return out
 end
