@@ -94,3 +94,16 @@ end
                "█  █ █  █ █  █ █  █   █  \n"
     @test image == expected
 end
+
+@testset "Day 9" begin
+    for T in (Int, BigInt)
+        inp = parse.(T, split("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99", ","))
+        @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing) == [109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99]
+
+        inp = parse.(T, split("1102,34915192,34915192,7,4,7,99,0", ","))
+        @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing)[end] == 1219070632396864
+
+        inp = parse.(T, split("104,1125899906842624,99", ","))
+        @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing)[end] == 1125899906842624
+    end
+end
