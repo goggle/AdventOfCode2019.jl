@@ -106,4 +106,5 @@ end
         inp = parse.(T, split("104,1125899906842624,99", ","))
         @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing)[end] == 1125899906842624
     end
+    @test AdventOfCode2019.Day09.day09() == [3601950151, 64236]
 end
