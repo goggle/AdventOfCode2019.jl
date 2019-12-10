@@ -22,6 +22,7 @@ function _run_program(data::Array{T, 1}, input::Channel{T}, output::Union{Channe
     out = Array{T,1}()
 
     i = 1  # instruction pointer
+    relativeBase = 1  # relative base
     digs = Array{UInt8,1}(undef, 5)
     modes = Array{UInt8,1}(undef, 3)
     while true
@@ -32,61 +33,46 @@ function _run_program(data::Array{T, 1}, input::Channel{T}, output::Union{Channe
         # modes for parameters 1, 2 and 3
         # mode 0: position mode
         # mode 1: immediate mode
+        # mode 2: relative mode
         modes .= digs[3:end]
 
         if optcode == 99
             break
-        elseif optcode == 1 || optcode == 2
-            par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
-            par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
-            if modes[3] == 0
-                par3 = data[i+3] + 1
-                if optcode == 1  # addition
-                    data[par3] = par1 + par2
-                elseif optcode == 2  # multiplication
-                    data[par3] = par1 * par2
-                end
-            end
+        elseif optcode == 1 || optcode == 2  # addition and multiplication
+            params = [_parameter(data, i + j, relativeBase, modes[j]) for j = 1:3]
+            op = optcode == 1 ? eval(+) : eval(*)
+            data[params[3]] = op(data[params[1]], data[params[2]])
             i += 4
         elseif optcode == 3  # read input
-            address = data[i+1]
-            data[address+1] = take!(input)
+            param = _parameter(data, i + 1, relativeBase, modes[1])
+            data[param] = take!(input)
             i += 2
         elseif optcode == 4  # output
-            val = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
+            param = _parameter(data, i + 1, relativeBase, modes[1])
+            value = data[param]
             if output == nothing
-                push!(out, val)
+                push!(out, value)
             else
-                put!(output, val)
+                put!(output, value)
             end
             i += 2
         elseif optcode == 5 || optcode == 6 # jump-if-true and jump-if-false
-            par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
+            par1 = _parameter(data, i + 1, relativeBase, modes[1])
             op = optcode == 5 ? eval(!=) : eval(==)
-            if op(par1, 0)
-                par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
-                i = par2 + 1
+            if op(data[par1], 0)
+                par2 = _parameter(data, i + 2, relativeBase, modes[2])
+                i = data[par2] + 1
             else
                 i += 3
             end
         elseif optcode == 7 || optcode == 8  # less than and equals
-            par1 = (modes[1] == 0) ? data[data[i+1]+1] : data[i+1]
-            par2 = (modes[2] == 0) ? data[data[i+2]+1] : data[i+2]
+            params = [_parameter(data, i + j, relativeBase, modes[j]) for j = 1:3]
             op = optcode == 7 ? eval(<) : eval(==)
-            if op(par1, par2)
-                if modes[3] == 0
-                    data[data[i+3]+1] = 1
-                else
-                    data[i+3] = 1
-                end
-            else
-                if modes[3] == 0
-                    data[data[i+3]+1] = 0
-                else
-                    data[i+3] = 0
-                end
-            end
+            data[params[3]] = op(data[params[1]], data[params[2]]) ? 1 : 0
             i += 4
+        elseif optcode == 9  # adjust relative base
+            param = _parameter(data, i + 1, relativeBase, modes[1])
+            relativeBase += param
         else
             throw(AssertionError("Invalid optcode: $optcode"))
         end
@@ -95,6 +81,30 @@ function _run_program(data::Array{T, 1}, input::Channel{T}, output::Union{Channe
         put!(done, true)
     end
     return out
+end
+
+function _get(data::Array{T,1}, index::Int) where T <: Integer
+    if index > length(data)
+        resize!(data, index)
+    end
+    return data[index]
+end
+
+function _set!(data::Array{T,1}, index::Int, value::T) where T <: Integer
+    if index > length(data)
+        resize!(data, index)
+    end
+    data[index] = value
+end
+
+function _parameter(data::Array{T,1}, index::Int, relativeBase::Int, mode::UInt8) where T <: Integer
+    if mode == 0
+        return data[index] + 1
+    elseif mode == 1
+        return index
+    elseif mode == 2
+        return data[relativeBase] + 1
+    end
 end
 
 function _run_program(data::Array{Int, 1}, input::Array{Int,1}=[])
