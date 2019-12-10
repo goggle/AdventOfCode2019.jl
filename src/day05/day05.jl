@@ -41,11 +41,11 @@ function _run_program(data::Array{T, 1}, input::Channel{T}, output::Union{Channe
         elseif optcode == 1 || optcode == 2  # addition and multiplication
             params = [_parameter(data, i + j, relativeBase, modes[j]) for j = 1:3]
             op = optcode == 1 ? eval(+) : eval(*)
-            data[params[3]] = op(data[params[1]], data[params[2]])
+            _set!(data, params[3], op(data[params[1]], data[params[2]]))
             i += 4
         elseif optcode == 3  # read input
             param = _parameter(data, i + 1, relativeBase, modes[1])
-            data[param] = take!(input)
+            _set!(data, param, take!(input))
             i += 2
         elseif optcode == 4  # output
             param = _parameter(data, i + 1, relativeBase, modes[1])
@@ -68,7 +68,7 @@ function _run_program(data::Array{T, 1}, input::Channel{T}, output::Union{Channe
         elseif optcode == 7 || optcode == 8  # less than and equals
             params = [_parameter(data, i + j, relativeBase, modes[j]) for j = 1:3]
             op = optcode == 7 ? eval(<) : eval(==)
-            data[params[3]] = op(data[params[1]], data[params[2]]) ? 1 : 0
+            _set!(data, params[3], op(data[params[1]], data[params[2]]) ? 1 : 0)
             i += 4
         elseif optcode == 9  # adjust relative base
             param = _parameter(data, i + 1, relativeBase, modes[1])
