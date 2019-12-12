@@ -108,3 +108,93 @@ end
     end
     @test AdventOfCode2019.Day09.day09() == [3601950151, 64236]
 end
+
+@testset "Day 10" begin
+    inp = ".#..#\n" *
+          ".....\n" *
+          "#####\n" *
+          "....#\n" *
+          "...##\n"
+    map = AdventOfCode2019.Day10._generate_map(inp)
+    ast, count = AdventOfCode2019.Day10._evaluate_best_asteroid(map)
+    @test AdventOfCode2019.Day10._to_puzzle_coordinates(ast) == CartesianIndex(3, 4)
+    @test count == 8
+
+    inp = "......#.#.\n" *
+          "#..#.#....\n" *
+          "..#######.\n" *
+          ".#.#.###..\n" *
+          ".#..#.....\n" *
+          "..#....#.#\n" *
+          "#..#....#.\n" *
+          ".##.#..###\n" *
+          "##...#..#.\n" *
+          ".#....####\n"
+    map = AdventOfCode2019.Day10._generate_map(inp)
+    ast, count = AdventOfCode2019.Day10._evaluate_best_asteroid(map)
+    @test AdventOfCode2019.Day10._to_puzzle_coordinates(ast) == CartesianIndex(5, 8)
+    @test count == 33
+
+    inp = "#.#...#.#.\n" *
+          ".###....#.\n" *
+          ".#....#...\n" *
+          "##.#.#.#.#\n" *
+          "....#.#.#.\n" *
+          ".##..###.#\n" *
+          "..#...##..\n" *
+          "..##....##\n" *
+          "......#...\n" *
+          ".####.###.\n"
+    map = AdventOfCode2019.Day10._generate_map(inp)
+    ast, count = AdventOfCode2019.Day10._evaluate_best_asteroid(map)
+    @test AdventOfCode2019.Day10._to_puzzle_coordinates(ast) == CartesianIndex(1, 2)
+    @test count == 35
+
+    inp = ".#..#..###\n" *
+          "####.###.#\n" *
+          "....###.#.\n" *
+          "..###.##.#\n" *
+          "##.##.#.#.\n" *
+          "....###..#\n" *
+          "..#.#..#.#\n" *
+          "#..#.#.###\n" *
+          ".##...##.#\n" *
+          ".....#.#..\n"
+    map = AdventOfCode2019.Day10._generate_map(inp)
+    ast, count = AdventOfCode2019.Day10._evaluate_best_asteroid(map)
+    @test AdventOfCode2019.Day10._to_puzzle_coordinates(ast) == CartesianIndex(6, 3)
+    @test count == 41
+
+    inp = ".#..##.###...#######\n" *
+          "##.############..##.\n" *
+          ".#.######.########.#\n" *
+          ".###.#######.####.#.\n" *
+          "#####.##.#.##.###.##\n" *
+          "..#####..#.#########\n" *
+          "####################\n" *
+          "#.####....###.#.#.##\n" *
+          "##.#################\n" *
+          "#####.##.###..####..\n" *
+          "..######..##.#######\n" *
+          "####.##.####...##..#\n" *
+          ".#####..#.######.###\n" *
+          "##...#.##########...\n" *
+          "#.##########.#######\n" *
+          ".####.#.###.###.#.##\n" *
+          "....##.##.###..#####\n" *
+          ".#.#.###########.###\n" *
+          "#.#.#.#####.####.###\n" *
+          "###.##.####.##.#..##\n"
+    map = AdventOfCode2019.Day10._generate_map(inp)
+    ast, count = AdventOfCode2019.Day10._evaluate_best_asteroid(map)
+    @test AdventOfCode2019.Day10._to_puzzle_coordinates(ast) == CartesianIndex(11, 13)
+    @test count == 210
+    ns = [1, 2, 3, 10, 20, 50, 100, 199, 200, 201, 299]
+    expected = [CartesianIndex(a) for a in [(11,12), (12,1), (12,2), (12,8), (16,0), (16,9), (10,16), (9,6), (8,2), (10,9), (11,1)]]
+    for (n, e) in zip(ns, expected)
+        res = AdventOfCode2019.Day10._vaporize(map, ast, n)
+        @test AdventOfCode2019.Day10._to_puzzle_coordinates(res) == e
+    end
+
+    @test AdventOfCode2019.Day10.day10() == [329, 512]
+end
