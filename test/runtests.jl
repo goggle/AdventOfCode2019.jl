@@ -198,3 +198,15 @@ end
 
     @test AdventOfCode2019.Day10.day10() == [329, 512]
 end
+
+@testset "Day 11" begin
+    p1, p2 = AdventOfCode2019.Day11.day11()
+    @test p1 == 2088
+    img = " █  █ ███   ██   ██  ████ █     ██  ███    \n" *
+          " █  █ █  █ █  █ █  █ █    █    █  █ █  █   \n" *
+          " █  █ █  █ █    █  █ ███  █    █    █  █   \n" *
+          " █  █ ███  █    ████ █    █    █    ███    \n" *
+          " █  █ █ █  █  █ █  █ █    █    █  █ █      \n" *
+          "  ██  █  █  ██  █  █ █    ████  ██  █      \n"
+    @test AdventOfCode2019.Day08.generate_image(p2) == img
+end
