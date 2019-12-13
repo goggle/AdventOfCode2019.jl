@@ -210,3 +210,19 @@ end
           "  ██  █  █  ██  █  █ █    ████  ██  █      \n"
     @test AdventOfCode2019.Day08.generate_image(p2) == img
 end
+
+@testset "Day 12" begin
+    inp = "<x=-1, y=0, z=2>\n" *
+          "<x=2, y=-10, z=-7>\n" *
+          "<x=4, y=-8, z=8>\n" *
+          "<x=3, y=5, z=-1>"
+    @test AdventOfCode2019.Day12.day12(inp) == [183, 2772]
+
+    inp = "<x=-8, y=-10, z=0>\n" *
+          "<x=5, y=5, z=10>\n" *
+          "<x=2, y=-7, z=3>\n" *
+          "<x=9, y=-8, z=-3>"
+    @test AdventOfCode2019.Day12.day12(inp) == [14645, 4686774924]
+
+    @test AdventOfCode2019.Day12.day12() == [10635, 583523031727256]
+end
