@@ -3,19 +3,12 @@ module AdventOfCode2019
 using BenchmarkTools
 using Printf
 
-include(joinpath(@__DIR__, "day01", "day01.jl"))
-include(joinpath(@__DIR__, "day02", "day02.jl"))
-include(joinpath(@__DIR__, "day03", "day03.jl"))
-include(joinpath(@__DIR__, "day04", "day04.jl"))
-include(joinpath(@__DIR__, "day05", "day05.jl"))
-include(joinpath(@__DIR__, "day06", "day06.jl"))
-include(joinpath(@__DIR__, "day07", "day07.jl"))
-include(joinpath(@__DIR__, "day08", "day08.jl"))
-include(joinpath(@__DIR__, "day09", "day09.jl"))
-include(joinpath(@__DIR__, "day10", "day10.jl"))
-include(joinpath(@__DIR__, "day11", "day11.jl"))
-include(joinpath(@__DIR__, "day12", "day12.jl"))
-include(joinpath(@__DIR__, "day13", "day13.jl"))
+const solvedDays = 1:13
+
+for day in solvedDays
+    ds = @sprintf("%02d", day)
+    include(joinpath(@__DIR__, "day$ds", "day$ds.jl"))
+end
 
 export readInput
 function readInput(path::String)
@@ -25,8 +18,16 @@ function readInput(path::String)
     return s
 end
 
-function inputPath(fname::String)
-    return joinpath(splitpath(@__DIR__)[1:end-1]..., "data", fname)
+for d in solvedDays
+    global ds = @sprintf("day%02d", d)
+    global modSymbol = Symbol(@sprintf("Day%02d", d))
+    global dsSymbol = Symbol(@sprintf("day%02d", d))
+    @eval begin
+        function $dsSymbol(input::String = readInput(joinpath(@__DIR__, $ds, "input.txt")))
+            return AdventOfCode2019.$modSymbol.$dsSymbol(input)
+        end
+        export $dsSymbol
+    end
 end
 
 function benchmark()
