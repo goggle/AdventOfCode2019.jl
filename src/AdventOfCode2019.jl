@@ -3,7 +3,7 @@ module AdventOfCode2019
 using BenchmarkTools
 using Printf
 
-const solvedDays = 1:13
+const solvedDays = 1:14
 
 for day in solvedDays
     ds = @sprintf("%02d", day)
