@@ -9,8 +9,10 @@ end
 
 function day14(input::String = readInput(joinpath(@__DIR__, "input.txt")))
     recipes = _parseInput(input)
-    return recipes
-
+    ingredients = _empty_ingredient_dict(recipes, 1)
+    nORE = _amount_of_ore!(ingredients, recipes)
+    nFuel = _max_fuel(1_000_000_000_000, recipes)
+    return [nORE, nFuel]
 end
 
 function _parseInput(input::String)
@@ -26,10 +28,7 @@ function _parseInput(input::String)
         reaction = Reaction(result, recipe)
         recipes[reaction.result.first] = reaction
     end
-    ingredients = _empty_ingredient_dict(recipes, 1)
-    nORE = _amount_of_ore!(ingredients, recipes)
-    nFuel = _max_fuel(1_000_000_000_000, recipes)
-    return [nORE, nFuel]
+    return recipes
 end
 
 function _empty_ingredient_dict(recipes::Dict{String,Reaction}, init_fuel=0)
