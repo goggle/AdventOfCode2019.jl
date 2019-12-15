@@ -26,8 +26,7 @@ function _parseInput(input::String)
         reaction = Reaction(result, recipe)
         recipes[reaction.result.first] = reaction
     end
-    ingredients = _empty_ingredient_dict(recipes)
-    ingredients["FUEL"] = 1
+    ingredients = _empty_ingredient_dict(recipes, 1)
     nORE = _amount_of_ore!(ingredients, recipes)
     nFuel = _max_fuel(1_000_000_000_000, recipes)
     return [nORE, nFuel]
