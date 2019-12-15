@@ -5,6 +5,7 @@ using Printf
 
 const solvedDays = 1:14
 
+include(joinpath(@__DIR__, "intcode.jl"))
 for day in solvedDays
     ds = @sprintf("%02d", day)
     include(joinpath(@__DIR__, "day$ds", "day$ds.jl"))

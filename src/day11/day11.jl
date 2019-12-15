@@ -43,7 +43,7 @@ function run_painting_robot(program::Array{Int,1}, initialColor::Int)
     put!(input, initialColor)
     output = Channel{Int}(2)
 
-    t = @task AdventOfCode2019.Day05._run_program(program, input, output, nothing)
+    t = @task AdventOfCode2019.IntCode.run_program!(program, input, output, nothing)
     schedule(t)
 
     while !istaskdone(t)

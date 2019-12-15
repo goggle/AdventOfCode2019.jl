@@ -23,37 +23,37 @@ end
 
 @testset "Day 5" begin
     inp = parse.(Int, split("3,9,8,9,10,9,4,9,99,-1,8", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [8])[end] == 1
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [9])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [8])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [9])[end] == 0
 
     inp = parse.(Int, split("3,9,7,9,10,9,4,9,99,-1,8", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [7])[end] == 1
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [8])[end] == 0
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [9])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [7])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [8])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [9])[end] == 0
 
     inp = parse.(Int, split("3,3,1108,-1,8,3,4,3,99", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [8])[end] == 1
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [9])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [8])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [9])[end] == 0
 
     inp = parse.(Int, split("3,3,1107,-1,8,3,4,3,99", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [7])[end] == 1
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [8])[end] == 0
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [9])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [7])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [8])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [9])[end] == 0
 
     inp = parse.(Int, split("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [0])[end] == 0
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [-1])[end] == 1
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [1])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [0])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [-1])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [1])[end] == 1
 
     inp = parse.(Int, split("3,3,1105,-1,9,1101,0,0,12,4,12,99,1", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [0])[end] == 0
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [-1])[end] == 1
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [1])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [0])[end] == 0
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [-1])[end] == 1
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [1])[end] == 1
 
     inp = parse.(Int, split("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99", ","))
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [7])[end] == 999
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [8])[end] == 1000
-    @test AdventOfCode2019.Day05._run_program(copy(inp), [9])[end] == 1001
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [7])[end] == 999
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [8])[end] == 1000
+    @test AdventOfCode2019.IntCode.run_program!(copy(inp), [9])[end] == 1001
 
     @test AdventOfCode2019.Day05.day05() == [7566643, 9265694]
 end
@@ -98,13 +98,13 @@ end
 @testset "Day 9" begin
     for T in (Int, BigInt)
         inp = parse.(T, split("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99", ","))
-        @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing) == [109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99]
+        @test AdventOfCode2019.IntCode.run_program!(inp, nothing, nothing, nothing) == [109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99]
 
         inp = parse.(T, split("1102,34915192,34915192,7,4,7,99,0", ","))
-        @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing)[end] == 1219070632396864
+        @test AdventOfCode2019.IntCode.run_program!(inp, nothing, nothing, nothing)[end] == 1219070632396864
 
         inp = parse.(T, split("104,1125899906842624,99", ","))
-        @test AdventOfCode2019.Day05._run_program(inp, nothing, nothing, nothing)[end] == 1125899906842624
+        @test AdventOfCode2019.IntCode.run_program!(inp, nothing, nothing, nothing)[end] == 1125899906842624
     end
     @test AdventOfCode2019.Day09.day09() == [3601950151, 64236]
 end

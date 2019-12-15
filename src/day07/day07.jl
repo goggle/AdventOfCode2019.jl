@@ -19,7 +19,7 @@ function run_amplifiers(program::Array{Int,1}, phases::Array{Int,1}, inputA::Int
     put!(channels[1], inputA)
 
     for i = 1:5
-        @async AdventOfCode2019.Day05._run_program(copy(program), channels[i], channels[i+1], nothing)
+        @async AdventOfCode2019.IntCode.run_program!(copy(program), channels[i], channels[i+1], nothing)
     end
     result = take!(channels[6])
     for i = 1:6
@@ -37,7 +37,7 @@ function run_feedback_loop(program::Array{Int,1}, phases::Array{Int,1}, inputA::
     put!(channels[1], inputA)
 
     for i = 1:5
-        @async AdventOfCode2019.Day05._run_program(copy(program), channels[i], channels[mod1(i+1, 5)], status[i])
+        @async AdventOfCode2019.IntCode.run_program!(copy(program), channels[i], channels[mod1(i+1, 5)], status[i])
     end
     for i = 1:5
         take!(status[i])
