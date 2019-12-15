@@ -32,12 +32,30 @@ for d in solvedDays
 end
 
 function benchmark()
-    for day in 1:25
-        sym = Symbol("day" * @sprintf("%02d", day))
-        !isdefined(@__MODULE__, sym) && continue
-        #f = getproperty(AdventOfCode2019, sym)
-        f = getproperty(@__MODULE__, sym)
+    results = []
+    for day in solvedDays
+        ds = @sprintf("day%02d", day)
+        global input = readInput(joinpath(@__DIR__, ds, "input.txt"))
+        # println(input)
+        dsSymbol = Symbol(@sprintf("day%02d", day))
+        global func = eval(dsSymbol)
+        bresult = @benchmark(func($input))
+        push!(results, (day, time(bresult), memory(bresult)))
     end
+    return results
+end
+
+function _to_markdown_table(bresults)
+    header = "| Day | Time | Memory |\n" *
+             "|----:|-----:|-------:|"
+    lines = [header]
+    for (d, t, m) in bresults
+        ds = string(d)
+        ts = BenchmarkTools.prettytime(t)
+        ms = BenchmarkTools.prettymemory(m)
+        push!(lines, "| $ds | $ts | $ms |")
+    end
+    return join(lines, "\n")
 end
 
 end # module
