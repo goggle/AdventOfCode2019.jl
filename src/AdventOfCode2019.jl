@@ -31,12 +31,11 @@ for d in solvedDays
     end
 end
 
-function benchmark()
+function benchmark(days=solvedDays)
     results = []
-    for day in solvedDays
+    for day in days
         ds = @sprintf("day%02d", day)
         global input = readInput(joinpath(@__DIR__, ds, "input.txt"))
-        # println(input)
         dsSymbol = Symbol(@sprintf("day%02d", day))
         global func = eval(dsSymbol)
         bresult = @benchmark(func($input))
