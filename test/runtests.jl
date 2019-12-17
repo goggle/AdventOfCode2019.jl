@@ -299,3 +299,21 @@ end
 @testset "Day 15" begin
     @test day15() == [374, 482]
 end
+
+@testset "Day 16" begin
+    for (inp, out) in zip(("80871224585914546619083218645595",
+                           "19617804207202209144916044189917",
+                           "69317163492948606335995924319873"), (
+                           24176176, 73745418, 52432133))
+        digits = parse.(Int8, split(strip(inp), ""))
+        @test AdventOfCode2019.Day16.part1!(digits) == out
+    end
+    for (inp, out) in zip(("03036732577212944063491565474664",
+                           "02935109699940807407585447034323",
+                           "03081770884921959731165446850517"), (
+                           84462026, 78725270, 53553731))
+        digits = parse.(Int8, split(strip(inp), ""))
+        @test AdventOfCode2019.Day16.part2(digits) == out
+    end
+    @test day16() == [25131128, 53201602]
+end
