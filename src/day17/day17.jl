@@ -22,6 +22,7 @@ function read_camera!(program::Array{Int,1})
     while !istaskdone(t)
         push!(view, take!(out))
     end
+    close(out)
 
     rows = split((strip(join(Char.(view)))),'\n')
     mat = Array{Char,2}(undef, length(rows), length(rows[1]))
@@ -201,7 +202,11 @@ function control_robot!(compressedInstruction, program)
 
     while true
         ret = take!(out)
-        istaskdone(t) && return ret
+        if istaskdone(t)
+            close(inp)
+            close(out)
+            return ret
+        end
     end
 end
 
