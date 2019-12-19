@@ -317,3 +317,7 @@ end
     end
     @test day16() == [25131128, 53201602]
 end
+
+@testset "Day 17" begin
+    @test day17() == [3936, 785733]
+end
