@@ -321,3 +321,92 @@ end
 @testset "Day 17" begin
     @test day17() == [3936, 785733]
 end
+
+@testset "Day 18" begin
+    inp = "#########\n" *
+          "#b.A.@.a#\n" *
+          "#########\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part1(maze) == 8
+
+    inp = "########################\n" *
+          "#f.D.E.e.C.b.A.@.a.B.c.#\n" *
+          "######################.#\n" *
+          "#d.....................#\n" *
+          "########################\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part1(maze) == 86
+
+    inp = "########################\n" *
+          "#...............b.C.D.f#\n" *
+          "#.######################\n" *
+          "#.....@.a.B.c.d.A.e.F.g#\n" *
+          "########################\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part1(maze) == 132
+
+    inp = "#################\n" *
+          "#i.G..c...e..H.p#\n" *
+          "########.########\n" *
+          "#j.A..b...f..D.o#\n" *
+          "########@########\n" *
+          "#k.E..a...g..B.n#\n" *
+          "########.########\n" *
+          "#l.F..d...h..C.m#\n" *
+          "#################\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part1(maze) == 136
+
+    inp = "########################\n" *
+          "#@..............ac.GI.b#\n" *
+          "###d#e#f################\n" *
+          "###A#B#C################\n" *
+          "###g#h#i################\n" *
+          "########################\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part1(maze) == 81
+
+    inp = "#######\n" *
+          "#a.#Cd#\n" *
+          "##1#2##\n" *
+          "#######\n" *
+          "##4#3##\n" *
+          "#cB#Ab#\n" *
+          "#######\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part2(maze) == 8
+
+    inp = "###############\n" *
+          "#d.ABC.#.....a#\n" *
+          "######1#2######\n" *
+          "###############\n" *
+          "######3#4######\n" *
+          "#b.....#.....c#\n" *
+          "###############\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part2(maze) == 24
+
+    inp = "#############\n" *
+          "#DcBa.#.GhKl#\n" *
+          "#.###1#2#I###\n" *
+          "#e#d#####j#k#\n" *
+          "###C#3#4###J#\n" *
+          "#fEbA.#.FgHi#\n" *
+          "#############\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part2(maze) == 32
+
+    inp = "#############\n" *
+          "#g#f.D#..h#l#\n" *
+          "#F###e#E###.#\n" *
+          "#dCba1#2BcIJ#\n" *
+          "#############\n" *
+          "#nK.L3#4G...#\n" *
+          "#M###N#H###.#\n" *
+          "#o#m..#i#jk.#\n" *
+          "#############\n"
+    maze = AdventOfCode2019.Day18.parse_input(inp)
+    @test AdventOfCode2019.Day18.part2(maze) == 72
+
+    @test day18() == [3962, 1844]
+end

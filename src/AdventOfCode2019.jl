@@ -3,7 +3,7 @@ module AdventOfCode2019
 using BenchmarkTools
 using Printf
 
-const solvedDays = 1:17
+const solvedDays = 1:18
 
 include(joinpath(@__DIR__, "intcode.jl"))
 for day in solvedDays
@@ -45,8 +45,8 @@ function benchmark(days=solvedDays)
 end
 
 function _to_markdown_table(bresults)
-    header = "| Day | Time | Memory |\n" *
-             "|----:|-----:|-------:|"
+    header = "| Day | Time | Allocated memory |\n" *
+             "|----:|-----:|-----------------:|"
     lines = [header]
     for (d, t, m) in bresults
         ds = string(d)

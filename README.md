@@ -5,8 +5,8 @@ This Julia package contains my solutions for [Advent of Code 2019](https://adven
 
 ## Benchmark
 
-| Day | Time | Memory |
-|----:|-----:|-------:|
+| Day | Time | Allocated memory |
+|----:|-----:|-----------------:|
 | 1 | 21.527 μs | 10.98 KiB |
 | 2 | 1.275 ms | 10.80 KiB |
 | 3 | 510.347 μs | 209.16 KiB |
@@ -24,3 +24,4 @@ This Julia package contains my solutions for [Advent of Code 2019](https://adven
 | 15 | 33.388 ms | 17.52 MiB |
 | 16 | 381.582 ms | 52.11 MiB |
 | 17 | 72.289 ms | 39.00 MiB |
+| 18 | 1.447 s | 678.39 MiB |
