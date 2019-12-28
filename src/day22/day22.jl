@@ -25,20 +25,29 @@ function part1(instructions)
 end
 
 function part2(instructions)
-    i = 5540
-    niter = 1
-    n = 10_006
-
     i = BigInt(2020)
     n = BigInt(119_315_717_514_047) - 1
     niter = BigInt(101_741_582_076_661)
 
+    # Observation: every single shuffle instruction from the input
+    # can be represented as `g(i) = a*i + b (modulo n + 1)`, so
+    # the result of applying all the shuffle instructions from the
+    # input can also be represented as `f(i) = a*i + b (modulo n + 1)`.
+    # We need to find the integers `a` and `b`. Set `x = i`, `y = f(x)`
+    # and `z = f(y)`. Then `y = a*x + b` and `z = a*y + b`,
+    # so `a = (x - y)^{-1} * (y - z) (modulo n + 1)` where
+    # `(x - y)^{-1}` is the modular inverse and `b = y - a*x (modulo n + 1)`
     x = i
     y = apply_reverse_instructions(instructions, x, n + 1)
     z = apply_reverse_instructions(instructions, y, n + 1)
     a = mod((y - z) * invmod(x - y, n + 1), n + 1)
     b = mod(y - a * x, n + 1)
 
+    # Now we need to apply `f(i) = a*i + b` `k = niter` times.
+    # Observe that
+    # f^k(i) = a^k * i + b * (a^{k-1} + a^{k-2} + ... + a + a^0) mod n + 1
+    #        = a^k * i + b * (a^k - 1) / (a - 1) mod n + 1
+    # This allows us to calculate `f^k(i)` directly without a loop.
     pm = powermod(a, niter, n + 1)
     c = mod(mod(pm - 1, n + 1) * invmod(a - 1, n + 1), n + 1)
     i = mod(pm * i + b * c, n + 1)
@@ -47,6 +56,8 @@ function part2(instructions)
 end
 
 function apply_reverse_instructions(instructions, i, decksize)
+    # Apply all the instructions from the input in reverse order
+    # to an index `i`
     n = decksize - 1
     for (inst, N) in reverse(instructions)
         if inst == :stack
