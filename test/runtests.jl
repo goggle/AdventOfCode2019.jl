@@ -525,3 +525,7 @@ end
 @testset "Day 22" begin
     @test day22() == [5540, 6821410630991]
 end
+
+@testset "Day 23" begin
+    @test day23() == [17286, 11249]
+end

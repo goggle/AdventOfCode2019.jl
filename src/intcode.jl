@@ -2,7 +2,7 @@ module IntCode
 
 using AdventOfCode2019
 
-function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, output::Union{Channel{T},Nothing}, done::Union{Channel{Bool}, Nothing}) where T <: Integer
+function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, output::Union{Channel{T},Nothing}, done::Union{Channel{Bool},Nothing}; waitingForInput::Union{Channel{Bool},Nothing} = nothing) where T <: Integer
     out = Array{T,1}()
 
     i = T(1)  # instruction pointer
@@ -31,7 +31,13 @@ function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, outpu
         elseif optcode == 3  # read input
             param = _parameter(data, i + 1, relativeBase, modes[1])
             if input != nothing
+                if waitingForInput != nothing
+                    put!(waitingForInput, true)
+                end
                 _set!(data, param, take!(input))
+                if waitingForInput != nothing
+                    take!(waitingForInput)
+                end
             end
             i += 2
         elseif optcode == 4  # output
