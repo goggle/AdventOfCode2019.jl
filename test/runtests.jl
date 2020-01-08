@@ -529,3 +529,16 @@ end
 @testset "Day 23" begin
     @test day23() == [17286, 11249]
 end
+
+@testset "Day 24" begin
+    input = "....#\n" *
+            "#..#.\n" *
+            "#..##\n" *
+            "..#..\n" *
+            "#....\n"
+    layout = AdventOfCode2019.Day24.parse_input(input)
+    @test AdventOfCode2019.Day24.part1(layout) == 2129920
+    @test AdventOfCode2019.Day24.part2(layout; niter = 10) == 99
+
+    @test day24() == [18350099 ,2037]
+end
