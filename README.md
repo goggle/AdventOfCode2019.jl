@@ -31,3 +31,4 @@ This Julia package contains my solutions for [Advent of Code 2019](https://adven
 | 22 | 138.672 μs | 96.19 KiB |
 | 23 | 128.335 ms | 38.53 MiB |
 | 24 | 129.958 ms | 10.39 MiB |
+| 25 | 2.660 s | 1.13 GiB |

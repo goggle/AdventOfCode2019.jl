@@ -542,3 +542,7 @@ end
 
     @test day24() == [18350099 ,2037]
 end
+
+@testset "Day 25" begin
+    @test day25() == 262848
+end
