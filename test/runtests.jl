@@ -540,7 +540,7 @@ end
     @test AdventOfCode2019.Day24.part1(layout) == 2129920
     @test AdventOfCode2019.Day24.part2(layout; niter = 10) == 99
 
-    @test day24() == [18350099 ,2037]
+    @test day24() == [18350099, 2037]
 end
 
 @testset "Day 25" begin
