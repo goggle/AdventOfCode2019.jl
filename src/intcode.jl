@@ -12,6 +12,7 @@ function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, outpu
     digs = Array{UInt8,1}(undef, 5)
     modes = Array{UInt8,1}(undef, 3)
 
+    params = Array{T,1}(undef, 3)
     while true
         fill!(digs, zero(UInt8))
         digits!(digs, data[i])
@@ -21,14 +22,21 @@ function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, outpu
         # mode 0: position mode
         # mode 1: immediate mode
         # mode 2: relative mode
-        modes .= digs[3:end]
+        for j = 1:3
+            modes[j] = digs[3+j-1]
+        end
 
         if optcode == 99
             break
         elseif optcode == 1 || optcode == 2  # addition and multiplication
-            params = [_parameter(data, i + j, relativeBase, modes[j]) for j = 1:3]
-            op = optcode == 1 ? eval(+) : eval(*)
-            val = op(_get(data, extMemory, params[1]; preserve = preserve_program), _get(data, extMemory, params[2]; preserve = preserve_program))
+            for j = 1:3
+                params[j] = _parameter(data, i + j, relativeBase, modes[j])
+            end
+            if optcode == 1
+                val = _get(data, extMemory, params[1]; preserve = preserve_program) + _get(data, extMemory, params[2]; preserve = preserve_program)
+            else
+                val = _get(data, extMemory, params[1]; preserve = preserve_program) * _get(data, extMemory, params[2]; preserve = preserve_program)
+            end
             _set!(data, extMemory, params[3], val; preserve = preserve_program)
             i += 4
         elseif optcode == 3  # read input
@@ -62,9 +70,14 @@ function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, outpu
                 i += 3
             end
         elseif optcode == 7 || optcode == 8  # less than and equals
-            params = [_parameter(data, i + j, relativeBase, modes[j]) for j = 1:3]
-            op = optcode == 7 ? eval(<) : eval(==)
-            value = op(_get(data, extMemory, params[1]; preserve = preserve_program), _get(data, extMemory, params[2]; preserve = preserve_program))
+            for j = 1:3
+                params[j] = _parameter(data, i + j, relativeBase, modes[j])
+            end
+            if optcode == 7
+                value = (_get(data, extMemory, params[1]; preserve = preserve_program) < _get(data, extMemory, params[2]; preserve = preserve_program))
+            else
+                value = (_get(data, extMemory, params[1]; preserve = preserve_program) == _get(data, extMemory, params[2]; preserve = preserve_program))
+            end
             _set!(data, extMemory, params[3], value ? T(1) : T(0); preserve = preserve_program)
             i += 4
         elseif optcode == 9  # adjust relative base
@@ -79,21 +92,12 @@ function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, outpu
         put!(done, true)
     end
     if reboot
-        for key in keys(extMemory)
-            delete!(extMemory, key)
-        end
         @goto start
     end
     return out
 end
 
 @inline function _get(data::Array{T,1}, memory::Dict{T,T}, index::T; preserve = false) where T <: Integer
-    # if preserve && haskey(memory, index)
-    #     return memory[index]
-    # end
-    # if index > length(data)
-    #     return T(0)
-    # end
     preserve && haskey(memory, index) && return memory[index]
     index > length(data) && return T(0)
     return data[index]
