@@ -30,7 +30,7 @@ function day12(input::String = readInput(joinpath(@__DIR__, "input.txt")))
 
     cycles = zeros(Int, 3)
     n = 0
-    while any(cycles .== 0)
+    while iszero(cycles[1]) || iszero(cycles[2]) || iszero(cycles[3])
         _timestep!(positions, velocities)
         n += 1
         for d in findall(x->x==0, cycles)
@@ -43,7 +43,11 @@ function day12(input::String = readInput(joinpath(@__DIR__, "input.txt")))
 end
 
 function _equals(s1, s2, dim)
-    return [x[dim] for x in s1] == [x[dim] for x in s2]
+    length(s1) == length(s2) || return false
+    for (x, y) in zip(s1, s2)
+        x[dim] == y[dim] || return false
+    end
+    return true
 end
 
 function _update_velocities!(positions, velocities)
