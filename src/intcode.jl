@@ -78,14 +78,14 @@ function run_program!(data::Array{T, 1}, input::Union{Channel{T},Nothing}, outpu
     return out
 end
 
-function _get(data::Array{T,1}, index::T) where T <: Integer
+@inline function _get(data::Array{T,1}, index::T) where T <: Integer
     if index > length(data)
         return T(0)
     end
     return data[index]
 end
 
-function _set!(data::Array{T,1}, index::T, value::T) where T <: Integer
+@inline function _set!(data::Array{T,1}, index::T, value::T) where T <: Integer
     n = length(data)
     if index > n
         resize!(data, index)
@@ -94,7 +94,7 @@ function _set!(data::Array{T,1}, index::T, value::T) where T <: Integer
     data[index] = value
 end
 
-function _parameter(data::Array{T,1}, index::T, relativeBase::T, mode::UInt8) where T <: Integer
+@inline function _parameter(data::Array{T,1}, index::T, relativeBase::T, mode::UInt8) where T <: Integer
     if mode == 0
         return data[index] + 1
     elseif mode == 1
