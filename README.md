@@ -18,7 +18,7 @@ This Julia package contains my solutions for [Advent of Code 2019](https://adven
 | 9 | 23.784 ms | 72.92 KiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day09/day09.jl) |
 | 10 | 253.410 ms | 62.58 MiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day10/day10.jl) |
 | 11 | 61.687 ms | 1.73 MiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day11/day11.jl) |
-| 12 | 343.070 ms | 1.25 GiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day12/day12.jl) |
+| 12 | 109.007 ms | 187.87 MiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day12/day12.jl) |
 | 13 | 76.086 ms | 712.30 KiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day13/day13.jl) |
 | 14 | 2.650 ms | 964.63 KiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day14/day14.jl) |
 | 15 | 11.352 ms | 318.86 KiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day15/day15.jl) |
