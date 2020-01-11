@@ -29,7 +29,7 @@ This Julia package contains my solutions for [Advent of Code 2019](https://adven
 | 20 | 1.081 s | 436.88 MiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day20/day20.jl) |
 | 21 | 35.018 ms | 280.50 KiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day21/day21.jl) |
 | 22 | 136.020 μs | 96.19 KiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day22/day22.jl) |
-| 23 | 110.598 ms | 2.18 MiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day23/day23.jl) |
+| 23 | 14.125 ms | 2.17 MiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day23/day23.jl) |
 | 24 | 67.635 ms | 10.39 MiB | | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day24/day24.jl) |
 | 25 | 1.626 s | 2.80 MiB | :white_check_mark: | [:white_check_mark:](https://github.com/goggle/AdventOfCode2019.jl/blob/master/src/day25/day25.jl) |
 
