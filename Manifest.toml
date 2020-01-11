@@ -51,9 +51,9 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[OffsetArrays]]
-git-tree-sha1 = "27f32af4e7b11f5aa9f3cad60b777cd042af149a"
+git-tree-sha1 = "87d0a91efe29352d5caaa271ae3927083c096e33"
 uuid = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
-version = "0.11.3"
+version = "0.11.4"
 
 [[Parsers]]
 deps = ["Dates", "Test"]
