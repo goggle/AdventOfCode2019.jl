@@ -59,7 +59,7 @@ function solve(program::Array{Int,1})
         take_items(combi, inp, out)
         command("south", inp, out; clear_output = false)
         while !isready(out)
-            sleep(0.0001)
+            yield()
         end
         os = get_output(out)
         if occursin("heavier", os) || occursin("lighter", os)
@@ -106,7 +106,7 @@ function command(c::String, inp::Channel{Int}, out::Channel{Int}; clear_output =
     end
     if clear_output
         while !isready(out)
-            sleep(0.0001)
+            yield()
         end
         while isready(out)
             take!(out)
