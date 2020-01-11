@@ -113,7 +113,7 @@ function solve(program::Array{Int,1})
                 put!(lastYChannel, currentNATPacket[2])
                 break
             end
-            sleep(0.00001)
+            yield()
         end
     end
 end
