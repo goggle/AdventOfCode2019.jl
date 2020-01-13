@@ -64,7 +64,7 @@ Install `AdventOfCode2019.jl`:
 (aoc) pkg> add https://github.com/goggle/AdventOfCode2019.jl
 ```
 
-Go back to the Julia REPL by typing `backspace`.
+Go back to the Julia REPL by pushing the `backspace` button.
 
 
 ### Usage
