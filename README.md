@@ -43,3 +43,49 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-6.0.1 (ORCJIT, ivybridge)
 ```
+
+
+## Installation and Usage
+
+Make sure you have (https://julialang.org/downloads/)[Julia 1.3 or newer]
+installed on you system.
+
+
+### Installation
+
+Start Julia and enter the package REPL by typing `]`. Create a new
+environment:
+```julia
+(v1.3) pkg> activate aoc
+```
+
+Install `AdventOfCode2019.jl`:
+```
+(aoc) pkg> add https://github.com/goggle/AdventOfCode2019.jl
+```
+
+Go back to the Julia REPL by typing `backspace`.
+
+
+### Usage
+
+First, activate the package:
+```julia
+julia> using AdventOfCode2019
+```
+
+Each puzzle can now be run with `dayXY()`:
+```julia
+julia> day09()
+2-element Array{Int64,1}:
+ 3601950151
+      64236
+```
+
+This will use my personal input. If you want to use another input, provide it
+to the `dayXY` method as a string. You can also use the `readInput` method
+to read your input from a text file:
+```julia
+julia> input = readInput("/path/to/input.txt")
+```
+
