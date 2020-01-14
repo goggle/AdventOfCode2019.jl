@@ -11,15 +11,13 @@ struct Computer
 end
 
 function all_waiting(network::Dict{Int,Computer})
-    allWaiting = true
     for (k, v) in network
         k == 255 && continue
         if !isready(v.waiting) || isready(v.input)
-            allWaiting = false
-            return allWaiting
+            return false
         end
     end
-    return allWaiting
+    return true
 end
 
 function has_unprocessed_output(network::Dict{Int,Computer})
