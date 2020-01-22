@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/goggle/AdventOfCode2019.jl.svg?branch=master)](https://travis-ci.com/goggle/AdventOfCode2019.jl)
+[![Code coverage](https://codecov.io/gh/goggle/AdventOfCode2019.jl/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/github/goggle/AdventOfCode2019.jl?branch=master)
 
 # AdventOfCode2019.jl
 
